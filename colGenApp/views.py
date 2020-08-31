@@ -8,7 +8,9 @@ def root_view(request):
     if request.method == "POST":
         if form.is_valid():
             print("IMAGE NAME === ", form.cleaned_data.get('name'))
+            print("POST SUCCESS")
             return render(request, 'colGenApp/index.html',{'form':form})
     else:
         form = ImageUploadForm()
-        return render(request, 'colGenApp/index.html',{'form':form})
+    
+    return render(request, 'colGenApp/index.html',{'form':form})
