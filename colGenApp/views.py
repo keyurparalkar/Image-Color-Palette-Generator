@@ -3,7 +3,7 @@ from .forms import ImageUploadForm
 from .models import ImageUploadModel
 
 from PIL import Image
-from .image_utils import img_to_base64
+from .image_utils import img_to_base64, hex_colors
 
 # Create your views here.
 def root_view(request):
@@ -19,9 +19,12 @@ def root_view(request):
             img_obj = request.FILES['img_file']
 
             
-            print(f'Value in form Data ==== {request.FILES["img_file"].__dict__}')            
+            # print(f'Value in form Data ==== {img_obj.__dict__}')            
             img_obj64_decoded = img_to_base64(img_obj.file)
-            return render(request, 'colGenApp/index.html',{'form':form, 'img_obj':img_obj64_decoded})
+            
+            hex_values = hex_colors(img_obj, 4)
+            print(f'HEX VALUES = {hex_values}')
+            return render(request, 'colGenApp/index.html',{'form':form, 'img_obj':img_obj64_decoded, 'hex_vals':hex_values})
     else:
         form = ImageUploadForm()
     
