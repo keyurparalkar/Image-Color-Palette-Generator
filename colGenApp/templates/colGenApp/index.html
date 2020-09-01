@@ -6,7 +6,15 @@
         <button type="submit" class='image-upload'>Upload Image</button>
 </form>
 
+{% if hex_vals %}
+        <h3>HEX Values Present in IMage == {{hex_vals}}</h3>
 
+        {% for color in hex_vals %}
+                <div style="background-color: {{ color }};">
+                        <p>color</p>
+                </div>
+        {% endfor %}
+{% endif %}
 
 {% if img_obj %}
         <img src="data:image/jpeg;base64,{{img_obj}}" alt="Image Uploaded"/>
