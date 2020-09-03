@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'colGenApp.apps.ColgenappConfig'
+    'colGenApp.apps.ColgenappConfig',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
