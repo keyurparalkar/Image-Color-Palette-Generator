@@ -1,6 +1,9 @@
 from django.shortcuts import render
+from django.http import JsonResponse
+
 from .forms import ImageUploadForm
 from .models import ImageUploadModel
+from .serializers import ImageSerializer
 
 from PIL import Image
 from .image_utils import img_to_base64, hex_colors
@@ -10,6 +13,7 @@ def root_view(request):
     if request.method == "POST":
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
+            print(f'Request File Type = {type(request.FILES["img_file"])}')
             #save the image into the model:
             img_instance = ImageUploadModel(img=request.FILES['img_file'])
             img_instance.save()
@@ -29,3 +33,10 @@ def root_view(request):
         form = ImageUploadForm()
     
     return render(request, 'colGenApp/index.html',{'form':form})
+
+
+def data_list(request):
+    if request.method == 'GET':
+        objs = ImageUploadModel.objects.all()
+        sz = ImageSerializer(objs, many=True)
+        return JsonResponse(sz.data, safe=False)
