@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from rest_framework import viewsets
 
 from .forms import ImageUploadForm
 from .models import ImageUploadModel
@@ -40,3 +41,8 @@ def data_list(request):
         objs = ImageUploadModel.objects.all()
         sz = ImageSerializer(objs, many=True)
         return JsonResponse(sz.data, safe=False)
+
+
+class ImageViewSet(viewsets.ModelViewSet):
+    queryset = ImageUploadModel.objects.all()
+    serializer_class = ImageSerializer
